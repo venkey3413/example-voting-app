@@ -1,0 +1,25 @@
+  vote:
+    build: ../vote/
+    ports: ["80"]
+    depends_on:
+      - redis
+      - db
+    environment:
+      - OPTION_A=Panchakarla Ramesh Babu (JSP)
+      - OPTION_B=Annamreddy Adeepraj (YSRCP)
+    networks:
+      - front-tier
+      - back-tier
+
+  result:
+    build: .
+    ports: ["80"]
+    depends_on:
+      - redis
+      - db
+    environment:
+      - OPTION_A=Panchakarla Ramesh Babu (JSP)
+      - OPTION_B=Annamreddy Adeepraj (YSRCP)
+    networks:
+      - front-tier
+      - back-tier
