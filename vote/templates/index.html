@@ -1,49 +1,52 @@
 <!DOCTYPE html>
-<html>
+<script src="app.js"></script>
+<html ng-app="jspvsysrcp">
   <head>
     <meta charset="utf-8">
-    <title>{{option_a}} vs {{option_b}}!</title>
+    <title>Panchakarla Ramesh Babu (JSP) vs Annamreddy Adeepraj (YSRCP) -- Result</title>
     <base href="/index.html">
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="docker-compose, docker, stack">
-    <meta name="author" content="Tutum dev team">
-    <link rel='stylesheet' href="{{ url_for('static',filename='stylesheets/style.css') }}" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <meta name="author" content="Docker">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <style>
+      .jsp {
+        background: linear-gradient(90deg, rgba(255,255,0,0.5) 50%, rgba(255,255,255,0.3) 80%, rgba(255,165,0,0.2) 100%);
+      }
+      .ysrcp {
+        background: linear-gradient(90deg, rgba(0,0,255,1) 100%);
+      }
+    </style>
   </head>
-  <body>
+  <body ng-controller="statsCtrl">
+     <div id="background-stats">
+       <div id="background-stats-1">
+       </div><!--
+      --><div id="background-stats-2">
+      </div>
+    </div>
     <div id="content-container">
       <div id="content-container-center">
-        <h3>{{option_a}} vs {{option_b}}!</h3>
-        <form id="choice" name='form' method="POST" action="/">
-          <button id="a" type="submit" name="vote" class="a" value="a">{{option_a}}</button>
-          <button id="b" type="submit" name="vote" class="b" value="b">{{option_b}}</button>
-        </form>
-        <div id="tip">
-          (Tip: you can change your vote)
-        </div>
-        <div id="hostname">
-          Processed by container ID {{hostname}}
+        <div id="choice">
+          <div class="choice jsp">
+            <div class="label">Panchakarla Ramesh Babu (JSP)</div>
+            <div class="stat">{{aPercent | number:1}}%</div>
+          </div>
+          <div class="divider"></div>
+          <div class="choice ysrcp">
+            <div class="label">Annamreddy Adeepraj (YSRCP)</div>
+            <div class="stat">{{bPercent | number:1}}%</div>
+          </div>
         </div>
       </div>
     </div>
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
-    {% if vote %}
-    <script>
-      var vote = "{{vote}}";
-
-      if(vote == "a"){
-        $(".a").prop('disabled', true);
-        $(".a").html('{{option_a}} <i class="fa fa-check-circle"></i>');
-        $(".b").css('opacity','0.5');
-      }
-      if(vote == "b"){
-        $(".b").prop('disabled', true);
-        $(".b").html('{{option_b}} <i class="fa fa-check-circle"></i>');
-        $(".a").css('opacity','0.5');
-      }
-    </script>
-    {% endif %}
+    <div id="result">
+      <span ng-if="total == 0">No votes yet</span>
+      <span ng-if="total == 1">{{total}} vote</span>
+      <span ng-if="total >= 2">{{total}} votes</span>
+    </div>
+    <script src="socket.io.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
