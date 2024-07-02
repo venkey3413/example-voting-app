@@ -10,5 +10,5 @@ variable "ami_id" {
   default = "ami-0c55b159cbfafe1f0"  # Replace with your preferred AMI ID
 }
 variable "key_name" {
-  description = "Name of the key pair"
+  description = "key"
 }
